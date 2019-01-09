@@ -1,26 +1,20 @@
 <?php
+
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController
+class DefaultController extends AbstractController
 {
-
-	/**
-	 * @Route("/", name="homepage")
-	 */
-	public function index()
-	{
-		return new Response('<h1>Hello, world!</h1>');
-	}
-
-	/**
-	 * @Route("/about", name="about")
-	 */
-	public function about()
-	{
-		return new Response('<h1>About us</h1>');
-	}
+    /**
+     * @Route("/", name="default")
+     */
+    public function index()
+    {
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
 
 }
