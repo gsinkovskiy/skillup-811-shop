@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.realPrice|localizedcurrency('UAH') }}</p>
+    <p>{{ product.description }}</p>
+{% endblock %}
