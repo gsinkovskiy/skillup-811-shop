@@ -18,21 +18,10 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Стартовая</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('categories') }}">Категории</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Каталог
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ path('category', {'slug': 'tv'}) }}">Телевизоры</a>
-                            <a class="dropdown-item" href="{{ path('category', {'slug': 'media'}) }}">Мультимедиа</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Категория 3</a>
-                        </div>
-                    </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('about') }}">О магазине</a>
                     </li>
                 </ul>

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block body %}
+    <h1>{{ category.name }}</h1>
+
+    <div class="row">
+        {% for product in category.products %}
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <a href="{{ path('products_item', {'id': product.id}) }}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                    <div class="card-footer">
+                        {{ product.realPrice|localizedcurrency('UAH') }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
