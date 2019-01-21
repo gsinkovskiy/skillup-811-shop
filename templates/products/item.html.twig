@@ -5,5 +5,5 @@
 {% block body %}
     <h1>{{ product.name }}</h1>
     <p>{{ product.realPrice|localizedcurrency('UAH') }}</p>
-    <p>{{ product.description }}</p>
+    <p>{{ product.description|nl2br }}</p>
 {% endblock %}
