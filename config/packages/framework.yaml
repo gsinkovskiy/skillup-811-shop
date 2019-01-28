@@ -17,3 +17,7 @@ framework:
         log: true
 
     translator: { fallbacks: ["%locale%"] }
+
+    templating:
+        engines:
+            twig
