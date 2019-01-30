@@ -32,4 +32,9 @@ class User extends BaseUser
         return parent::setEmailCanonical($emailCanonical);
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
 }

@@ -6,4 +6,8 @@
     <h1>{{ product.name }}</h1>
     <p>{{ product.realPrice|localizedcurrency('UAH') }}</p>
     <p>{{ product.description|nl2br }}</p>
+
+    <a href="{{ path('orders_add_to_cart', {'id': product.id}) }}" class="btn btn-primary">
+        Добавить в корзину
+    </a>
 {% endblock %}
