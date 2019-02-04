@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\Product;
 use App\Service\OrdersService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,6 +33,26 @@ class OrdersController extends AbstractController
         $response->headers->setCookie(new Cookie('orderId', $order->getId(), new \DateTime('+1 year')));
 
         return $response;
+    }
+
+    /**
+     * @Route("orders/cart", name="orders_cart")
+     */
+    public function cart(OrdersService $ordersService)
+    {
+        return $this->render('orders/cart.html.twig', [
+            'cart' => $ordersService->getOrderFromRequest(),
+        ]);
+    }
+
+    /**
+     * @Route("/orders/cart-in-header", name="orders_cart_in_header")
+     */
+    public function cartInHeader(OrdersService $ordersService)
+    {
+        return $this->render('orders/cartInHeader.html.twig', [
+            'cart' => $ordersService->getOrderFromRequest(),
+        ]);
     }
 
 }

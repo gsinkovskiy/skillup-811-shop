@@ -6,6 +6,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -33,6 +34,10 @@
                     <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Поиск">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
                 </form>
+
+                <a href="{{ path('orders_cart') }}" class="navbar-text ml-2">
+                    {{ render(url('orders_cart_in_header')) }}
+                </a>
             </div>
         </nav>
 

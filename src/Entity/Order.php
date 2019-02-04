@@ -132,7 +132,7 @@ class Order
     }
 
     /**
-     * @return Collection|OrderItem[]
+     * @return OrderItem[]|Collection
      */
     public function getItems(): Collection
     {
