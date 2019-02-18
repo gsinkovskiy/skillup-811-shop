@@ -6,20 +6,6 @@
     <h1>Последние поступления</h1>
 
     <div class="row">
-        {% for product in products %}
-            <div class="col-sm-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <a href="{{ path('products_item', {'id': product.id}) }}" class="btn btn-primary">Подробнее</a>
-                        <a href="{{ path('orders_add_to_cart', {'id': product.id}) }}" class="btn btn-primary mt-1 js-add-to-cart">Добавить в корзину</a>
-                    </div>
-                    <div class="card-footer">
-                        {{ product.realPrice|localizedcurrency('UAH') }}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+        {{ include('products/_productsList.html.twig', {'products': products}) }}
     </div>
 {% endblock %}
