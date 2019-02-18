@@ -65,4 +65,35 @@ class OrdersService
         return $order;
     }
 
+    public function removeItemFromCart(OrderItem $item)
+    {
+        $cart = $this->getOrderFromRequest();
+        $order = $item->getOrder();
+
+        if ($cart !== $order) {
+            return;
+        }
+
+        $order->removeItem($item);
+        $this->entityManager->remove($item);
+        $this->entityManager->flush();
+    }
+
+    public function setItemQuantity(OrderItem $item, $quantity)
+    {
+        $cart = $this->getOrderFromRequest();
+        $order = $item->getOrder();
+
+        if ($cart !== $order) {
+            return;
+        }
+
+        if ($quantity < 1) {
+            return;
+        }
+
+        $item->setQuantity($quantity);
+        $this->entityManager->flush();
+    }
+
 }

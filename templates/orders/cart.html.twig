@@ -5,27 +5,8 @@
 {% block body %}
     <h1>Корзина</h1>
 
-    <table class="table table-striped">
-        <tr>
-            <th>Товар</th>
-            <th>Цена</th>
-            <th>Кол-во</th>
-            <th>Стоимость</th>
-        </tr>
-
-        {% for item in cart.items %}
-            <tr>
-                <td>{{ item.product.name }}</td>
-                <td>{{ item.price|money }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.cost|money }}</td>
-            </tr>
-        {% endfor %}
-
-        <tr>
-            <th colspan="3">Всего</th>
-            <th>{{ cart.amount|money }}</th>
-        </tr>
-    </table>
+    <div id="cartItems">
+        {{ include('orders/cartItems.html.twig', {'cart': cart}) }}
+    </div>
 {% endblock %}
 
