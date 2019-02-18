@@ -1,7 +1,9 @@
 {% for product in products %}
     <div class="col-sm-3">
         <div class="card">
-            <img src="{{ vich_uploader_asset(product, 'image')|imagine_filter('squared_thumbnail') }}" class="card-img-top" alt="{{ product.name }}">
+            {% if vich_uploader_asset(product, 'image') %}
+                <img src="{{ vich_uploader_asset(product, 'image')|imagine_filter('squared_thumbnail') }}" class="card-img-top" alt="{{ product.name }}">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text">{{ product.description }}</p>
