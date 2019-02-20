@@ -52,7 +52,10 @@ class ProductAdmin extends AbstractAdmin
             ->add('image', VichImageType::class, [
                 'required' => false,
                 'image_uri' => function (Product $product, $resolvedUri) use ($cacheManager) {
-                    // $cacheManager is LiipImagine cache manager
+                    if (!$resolvedUri) {
+                        return null;
+                    }
+
                     return $cacheManager->getBrowserPath($resolvedUri, 'squared_thumbnail');
                 }
             ])
