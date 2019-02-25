@@ -8,5 +8,6 @@
     <div id="cartItems">
         {{ include('orders/cartItems.html.twig', {'cart': cart}) }}
     </div>
+    <a class="btn btn-primary" href="{{ path('orders_create_order') }}">Оформить заказ</a>
 {% endblock %}
 
