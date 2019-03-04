@@ -4,3 +4,9 @@ Price: Цена
 Is Top:  В топе
 Category: Категория
 Product List: Список товаров
+Type: Тип
+
+attribute:
+  type:
+    !php/const App\Entity\Attribute::TYPE_INT: Числовой
+    !php/const App\Entity\Attribute::TYPE_LIST: Список

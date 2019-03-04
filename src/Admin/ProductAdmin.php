@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProductAdmin extends AbstractAdmin
@@ -43,23 +44,28 @@ class ProductAdmin extends AbstractAdmin
     {
         $cacheManager = $this->cacheManager;
 
-        $form
-            ->add('name')
-            ->add('description')
-            ->add('price')
-            ->add('isTop')
-            ->add('category')
-            ->add('image', VichImageType::class, [
-                'required' => false,
-                'image_uri' => function (Product $product, $resolvedUri) use ($cacheManager) {
-                    if (!$resolvedUri) {
-                        return null;
-                    }
+        if ($this->isCurrentRoute('attributes')) {
+            $form
+                ->add('attributeValues');
+        } else {
+            $form
+                ->add('name')
+                ->add('description')
+                ->add('price')
+                ->add('isTop')
+                ->add('category')
+                ->add('image', VichImageType::class, [
+                    'required' => false,
+                    'image_uri' => function (Product $product, $resolvedUri) use ($cacheManager) {
+                        if (!$resolvedUri) {
+                            return null;
+                        }
 
-                    return $cacheManager->getBrowserPath($resolvedUri, 'squared_thumbnail');
-                }
-            ])
-        ;
+                        return $cacheManager->getBrowserPath($resolvedUri, 'squared_thumbnail');
+                    }
+                ])
+            ;
+        }
     }
 
     protected function configureDatagridFilters(DatagridMapper $filter)
@@ -70,6 +76,13 @@ class ProductAdmin extends AbstractAdmin
             ->add('price')
             ->add('isTop')
             ->add('category');
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('attributes', $this->getRouterIdParameter() . '/attributes', [
+            '_controller' => $this->getBaseControllerName() . ':editAction',
+        ]);
     }
 
 
