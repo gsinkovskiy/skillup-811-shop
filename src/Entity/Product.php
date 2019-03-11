@@ -69,7 +69,8 @@ class Product
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AttributeValue", mappedBy="product", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\AttributeValue", mappedBy="product",
+     *     orphanRemoval=true, indexBy="attribute.id", cascade={"all"})
      */
     private $attributeValues;
 
@@ -209,7 +210,7 @@ class Product
     public function addAttributeValue(AttributeValue $attributeValue): self
     {
         if (!$this->attributeValues->contains($attributeValue)) {
-            $this->attributeValues[] = $attributeValue;
+            $this->attributeValues[$attributeValue->getAttribute()->getId()] = $attributeValue;
             $attributeValue->setProduct($this);
         }
 

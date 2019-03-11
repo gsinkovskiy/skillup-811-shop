@@ -1,0 +1,11 @@
+{% extends '@SonataAdmin/CRUD/edit.html.twig' %}
+
+{% block sonata_form_action_url -%}
+    {{ admin.generateUrl('attributes', {'id': objectId|default(admin.id(object)), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}
+{%- endblock %}
+
+{% block sonata_tab_content %}
+    <div class="col-md-12">
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}

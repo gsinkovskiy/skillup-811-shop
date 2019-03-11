@@ -41,7 +41,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: Категории }
 
     App\Admin\ProductAdmin:
-        arguments: [~, App\Entity\Product, ~, '@liip_imagine.cache.manager']
+        arguments: [~, App\Entity\Product, App\Controller\Admin\ProductAdminController, '@liip_imagine.cache.manager']
         tags:
             - { name: sonata.admin, manager_type: orm, label: Товары }
 
@@ -66,3 +66,8 @@ services:
         arguments: [~, App\Entity\Attribute, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Атрибуты }
+
+    App\Admin\AttributeValueAdmin:
+        arguments: [~, App\Entity\AttributeValue, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
