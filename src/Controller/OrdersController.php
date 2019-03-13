@@ -109,7 +109,7 @@ class OrdersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $ordersService->sendOrder($order);
 
-            $response = $this->redirectToRoute('orders_thanks');
+            $response = $this->redirectToRoute('payments_make_payment', ['id' => $order->getId()]);
             $response->headers->clearCookie('orderId');
 
             return $response;

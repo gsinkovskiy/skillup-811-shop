@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2cf5d955e6474889ff7928f02984b817",
+    "content-hash": "bf6a39f9e81ee4f2f1e9fa19a344fd89",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -6574,6 +6574,28 @@
             "time": "2019-02-19T09:32:11+00:00"
         },
         {
+            "name": "wayforpay/php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wayforpay/PHP.git",
+                "reference": "263c9235ceba6a806fbdb441d6c0fe4d236312f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wayforpay/PHP/zipball/263c9235ceba6a806fbdb441d6c0fe4d236312f5",
+                "reference": "263c9235ceba6a806fbdb441d6c0fe4d236312f5",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Wayforpay PHP API",
+            "time": "2017-10-05T11:58:45+00:00"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.4.0",
             "source": {
@@ -7674,7 +7696,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "wayforpay/php": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

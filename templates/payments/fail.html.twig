@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Заказ №{{ order.id }} не оплачен{% endblock %}
+
+{% block body %}
+    <h1>Заказ №{{ order.id }} не оплачен. Ошибка: {{ reason }}.</h1>
+{% endblock %}
+
