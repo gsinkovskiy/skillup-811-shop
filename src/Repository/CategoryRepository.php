@@ -3,7 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Category;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -12,11 +13,13 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Category[]    findAll()
  * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CategoryRepository extends ServiceEntityRepository
+class CategoryRepository extends NestedTreeRepository implements ServiceEntityRepositoryInterface
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Category::class);
+        $manager = $registry->getManagerForClass(Category::class);
+
+        parent::__construct($manager, $manager->getClassMetadata(Category::class));
     }
 
     // /**

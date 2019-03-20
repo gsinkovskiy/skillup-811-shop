@@ -3,7 +3,7 @@
 {% block title %}{{ category.name }}{% endblock %}
 
 {% block body %}
-    <h1>{{ category.name }}</h1>
+    <h1>{{ category }}</h1>
 
     <div class="row">
         {{ include('products/_productsList.html.twig', {'products': category.products}) }}

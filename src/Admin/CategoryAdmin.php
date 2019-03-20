@@ -10,10 +10,16 @@ use Sonata\AdminBundle\Form\FormMapper;
 class CategoryAdmin extends AbstractAdmin
 {
 
+    protected $datagridValues = [
+        '_sort_by' => 'left',
+    ];
+
+
     protected function configureListFields(ListMapper $list)
     {
         $list
             ->addIdentifier('id')
+            ->add('parent')
             ->addIdentifier('name')
         ;
     }
@@ -22,6 +28,7 @@ class CategoryAdmin extends AbstractAdmin
     {
         $filter
             ->add('id')
+            ->add('parent')
             ->add('name')
         ;
     }
@@ -29,6 +36,7 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form)
     {
         $form
+            ->add('parent')
             ->add('name')
             ->add('attributes');
     }

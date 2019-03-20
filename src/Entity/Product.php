@@ -70,7 +70,7 @@ class Product
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\AttributeValue", mappedBy="product",
-     *     orphanRemoval=true, indexBy="attribute.id", cascade={"all"})
+     *     orphanRemoval=true, indexBy="attribute_id", cascade={"all"})
      */
     private $attributeValues;
 

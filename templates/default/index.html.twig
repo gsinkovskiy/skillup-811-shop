@@ -8,4 +8,7 @@
     <div class="row">
         {{ include('products/_productsList.html.twig', {'products': products}) }}
     </div>
+
+    <h2>Категории:</h2>
+    {{ tree|raw }}
 {% endblock %}
