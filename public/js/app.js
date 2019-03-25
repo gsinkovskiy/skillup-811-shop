@@ -44,3 +44,30 @@ function mask() {
 function unmask() {
     $('.lmask').remove();
 }
+
+var headerSearchForm = $('#header-search-form');
+var headerSearchResults = $('#header-search-results');
+
+headerSearchForm.find('input')
+    .on('input', function() {
+        var query = this.value;
+
+        if (query.length >= 2) {
+            headerSearchForm.submit();
+        } else {
+            headerSearchResults.html('');
+        }
+    })
+    .on('blur', function() {
+        setTimeout(function() {
+            headerSearchResults.html('');
+        }, 200);
+    });
+
+headerSearchForm.on('submit', function(event) {
+    event.preventDefault();
+
+    $.get(headerSearchForm.attr('action'), headerSearchForm.serialize(), function(data) {
+        headerSearchResults.html(data);
+    })
+});

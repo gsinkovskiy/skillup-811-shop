@@ -1,0 +1,16 @@
+{% for product in products %}
+    <a href="{{ path('products_item', {'id': product.id}) }}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ product.name }}</h5>
+            <h5>{{ product.realPrice|localizedcurrency('UAH') }}</h5>
+        </div>
+        <div class="d-flex w-100 justify-content-between">
+            <div>
+                {% if vich_uploader_asset(product, 'image') %}
+                    <img src="{{ vich_uploader_asset(product, 'image')|imagine_filter('search_thumbnail') }}" alt="{{ product.name }}">
+                {% endif %}
+            </div>
+            <p class="mb-1">{{ product.description|truncate(50) }}</p>
+        </div>
+    </a>
+{% endfor %}

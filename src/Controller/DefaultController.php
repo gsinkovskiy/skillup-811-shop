@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -37,6 +38,24 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'products' => $products,
             'tree' => $tree,
+        ]);
+    }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function search(Request $request, ProductRepository $repository)
+    {
+        $query = $request->query->get('q');
+
+        if ($query) {
+            $products = $repository->findByName($query);
+        } else {
+            $products = [];
+        }
+
+        return $this->render('default/search.html.twig', [
+            'products' => $products,
         ]);
     }
 

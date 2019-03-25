@@ -6,6 +6,33 @@
     <h1>{{ category }}</h1>
 
     <div class="row">
-        {{ include('products/_productsList.html.twig', {'products': category.products}) }}
+        <div class="col-2">
+            {{ form_start(filterForm) }}
+
+            {% for attribute in category.attributes %}
+                <div class="row">
+                    <h5>{{ attribute.name }}</h5>
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            {{ form_label(filterForm['attr_min_' ~ attribute.id], 'от') }}
+                            {{ form_widget(filterForm['attr_min_' ~ attribute.id]) }}
+                        </div>
+                        <div class="form-group col-6">
+                            {{ form_label(filterForm['attr_max_' ~ attribute.id], 'до') }}
+                            {{ form_widget(filterForm['attr_max_' ~ attribute.id]) }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-default">Применить</button>
+
+            {{ form_end(filterForm) }}
+        </div>
+        <div class="col-10">
+            <div class="row">
+                {{ include('products/_productsList.html.twig', {'products': category.products}) }}
+            </div>
+        </div>
     </div>
 {% endblock %}
