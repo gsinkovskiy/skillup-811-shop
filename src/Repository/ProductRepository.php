@@ -46,26 +46,42 @@ class ProductRepository extends ServiceEntityRepository
         $usedAttributesCount = 0;
 
         foreach ($category->getAttributes() as $attribute) {
-            $minValue = $filter['attr_min_' . $attribute->getId()];
-            $maxValue = $filter['attr_max_' . $attribute->getId()];
+            if ($attribute->isInt()) {
+                $minValue = $filter['attr_min_' . $attribute->getId()];
+                $maxValue = $filter['attr_max_' . $attribute->getId()];
 
-            if (!$minValue && !$maxValue) {
-                continue;
+                if (!$minValue && !$maxValue) {
+                    continue;
+                }
+
+                $usedAttributesCount++;
+                $attrExpression = $attributeQueryBuilder->expr()->andX();
+                $attrExpression->add('v.attribute = ' . $attribute->getId());
+
+                if ($minValue) {
+                    $attrExpression->add('v.value >= ' . floatval($minValue));
+                }
+
+                if ($maxValue) {
+                    $attrExpression->add('v.value <= ' . floatval($maxValue));
+                }
+
+                $attributeQueryBuilder->orWhere($attrExpression);
             }
 
-            $usedAttributesCount++;
-            $attrExpression = $attributeQueryBuilder->expr()->andX();
-            $attrExpression->add('v.attribute = ' . $attribute->getId());
+            if ($attribute->isList()) {
+                $value = $filter['attr_' . $attribute->getId()];
 
-            if ($minValue) {
-                $attrExpression->add('v.value >= ' . floatval($minValue));
+                if (!$value) {
+                    continue;
+                }
+
+                $usedAttributesCount++;
+                $attrExpression = $attributeQueryBuilder->expr()->andX();
+                $attrExpression->add('v.attribute = ' . $attribute->getId());
+                $attrExpression->add($attributeQueryBuilder->expr()->in('v.value', $value));
+                $attributeQueryBuilder->orWhere($attrExpression);
             }
-
-            if ($maxValue) {
-                $attrExpression->add('v.value <= ' . floatval($maxValue));
-            }
-
-            $attributeQueryBuilder->orWhere($attrExpression);
         }
 
         $attributeQueryBuilder->having('matched >= ' . $usedAttributesCount);

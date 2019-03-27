@@ -82,6 +82,16 @@ class Attribute
         return $this->type;
     }
 
+    public function isInt(): bool
+    {
+        return $this->type == self::TYPE_INT;
+    }
+
+    public function isList(): bool
+    {
+        return $this->type == self::TYPE_LIST;
+    }
+
     public function setType(int $type): self
     {
         $this->type = $type;

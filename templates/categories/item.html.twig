@@ -12,16 +12,21 @@
             {% for attribute in category.attributes %}
                 <div class="row">
                     <h5>{{ attribute.name }}</h5>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            {{ form_label(filterForm['attr_min_' ~ attribute.id], 'от') }}
-                            {{ form_widget(filterForm['attr_min_' ~ attribute.id]) }}
+
+                    {% if attribute.isInt %}
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                {{ form_label(filterForm['attr_min_' ~ attribute.id], 'от') }}
+                                {{ form_widget(filterForm['attr_min_' ~ attribute.id]) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_label(filterForm['attr_max_' ~ attribute.id], 'до') }}
+                                {{ form_widget(filterForm['attr_max_' ~ attribute.id]) }}
+                            </div>
                         </div>
-                        <div class="form-group col-6">
-                            {{ form_label(filterForm['attr_max_' ~ attribute.id], 'до') }}
-                            {{ form_widget(filterForm['attr_max_' ~ attribute.id]) }}
-                        </div>
-                    </div>
+                    {% elseif attribute.isList %}
+                        {{ form_widget(filterForm['attr_' ~ attribute.id]) }}
+                    {% endif %}
                 </div>
             {% endfor %}
 
