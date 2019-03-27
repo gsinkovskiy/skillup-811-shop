@@ -29,7 +29,7 @@ class AttributeValue
     private $attribute;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $value;
 

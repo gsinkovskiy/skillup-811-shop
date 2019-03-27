@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\AttributeValue;
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -32,6 +34,56 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findByAttributes(Category $category, array $filter)
+    {
+        $attributeQueryBuilder = $this->_em->createQueryBuilder()
+            ->select('IDENTITY(v.product) as id, COUNT(v.attribute) AS matched')
+            ->from(AttributeValue::class, 'v')
+            ->groupBy('v.product');
+
+        $usedAttributesCount = 0;
+
+        foreach ($category->getAttributes() as $attribute) {
+            $minValue = $filter['attr_min_' . $attribute->getId()];
+            $maxValue = $filter['attr_max_' . $attribute->getId()];
+
+            if (!$minValue && !$maxValue) {
+                continue;
+            }
+
+            $usedAttributesCount++;
+            $attrExpression = $attributeQueryBuilder->expr()->andX();
+            $attrExpression->add('v.attribute = ' . $attribute->getId());
+
+            if ($minValue) {
+                $attrExpression->add('v.value >= ' . floatval($minValue));
+            }
+
+            if ($maxValue) {
+                $attrExpression->add('v.value <= ' . floatval($maxValue));
+            }
+
+            $attributeQueryBuilder->orWhere($attrExpression);
+        }
+
+        $attributeQueryBuilder->having('matched >= ' . $usedAttributesCount);
+        $attributes = $attributeQueryBuilder->getQuery()->getResult();
+        $productIds = array_column($attributes, 'id');
+
+        if (!$productIds) {
+            return [];
+        }
+
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        return $queryBuilder
+            ->where($queryBuilder->expr()->in('p.id', $productIds))
+            ->andWhere('p.category = :category')
+            ->setParameter('category', $category)
+            ->getQuery()
+            ->getResult();
     }
 
     /*

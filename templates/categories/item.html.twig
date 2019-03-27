@@ -25,13 +25,13 @@
                 </div>
             {% endfor %}
 
-            <button type="submit" class="btn btn-default">Применить</button>
+            <button type="submit" class="btn btn-primary">Применить</button>
 
             {{ form_end(filterForm) }}
         </div>
         <div class="col-10">
             <div class="row">
-                {{ include('products/_productsList.html.twig', {'products': category.products}) }}
+                {{ include('products/_productsList.html.twig', {'products': products}) }}
             </div>
         </div>
     </div>
