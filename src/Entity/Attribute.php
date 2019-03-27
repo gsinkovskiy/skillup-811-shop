@@ -42,6 +42,11 @@ class Attribute
      */
     private $attributeValues;
 
+    /**
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    private $choices = [];
+
     public function __construct()
     {
         $this->type = self::TYPE_INT;
@@ -51,7 +56,7 @@ class Attribute
 
     public function __toString()
     {
-        return $this->getName();
+        return (string)$this->getName();
     }
 
 
@@ -139,6 +144,18 @@ class Attribute
                 $attributeValue->setAttribute(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getChoices(): ?array
+    {
+        return $this->choices;
+    }
+
+    public function setChoices(?array $choices): self
+    {
+        $this->choices = $choices;
 
         return $this;
     }
